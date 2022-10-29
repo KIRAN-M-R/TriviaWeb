@@ -6,31 +6,39 @@ const Quiz = () => {
     
     <div className='relative' >
         <Navbar/>
-        <div className="bg-slate-800 h-screen flex flex-col p-4 fixed top-14 left-0 right-0">
-
-        <h1 className='text-yellow-500 mb-5'>Question 1</h1>
+        <div className="bg-slate-800 h-screen justify-start flex flex-row p-4 fixed top-14 left-0 right-0">
+<div className='w-1/4'>
+<h1 className='text-yellow-500 mb-5'>Question 1</h1>
         <h1 className='text-white'>What is your name</h1>
-        <div className='flex flex-row '>
-        <section className='flex flex-col justify-start'>
-        <TailwindOptionButton/>
-        <TailwindOptionButton/>
-        <TailwindOptionButton/>
-        <TailwindOptionButton/>
-        </section>
-        <section className='flex flex-row w-1/2 mx-20 justify-between'>
+</div>
+        <section className='w-3/4 '>
+            
+        <div className='flex flex-row m-5 justify-around'>
         <div className='grid grid-cols-1 content-center'>
         <button className='text-yellow-500'>Previous</button>
         </div>
-        <div className='grid grid-cols-1 content-end m-2'>
-        <button className='font-mono text-2xl h-10 w-40 text-white bg-sky-900'>Submit</button>
-        </div>
+        <section className='flex flex-col justify-start'>
+        <h1 className='text-left text-lg mb-5 font-semibold text-white'>Options</h1>
+        <TailwindOptionButton/>
+        <TailwindOptionButton/>
+        <TailwindOptionButton/>
+        <TailwindOptionButton/>
+        </section>
         <div className='grid grid-cols-1 content-center'>
         <button className='bg-yellow-500 w-20 h-10'>Next</button>
         </div>
+        
+        </div>
+        <section className='flex flex-row mt-40 justify-center'>
+        
+        <div className='grid grid-cols-1 content-end mt-10'>
+        <button className='font-mono text-2xl h-10 w-40 text-white bg-sky-900'>Submit</button>
+        </div>
+        
 
         </section>
-
-        </div>
+        </section>
+        
         
         
         
