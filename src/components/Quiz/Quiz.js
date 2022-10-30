@@ -6,14 +6,15 @@ import { useNavigate } from 'react-router-dom'
 
 
 const Quiz = () => {
-        const [state, setState] = useState('')
-        
+        const [quest, setQuest] = useState([])
+        const [rightAnswer, setRightAnswer] = useState([])
+        const [wrongAnswer, setWrongAnswer] = useState([])
+        const [options, setOptions] = useState([])
         useEffect((e)=>{
                 console.log("hi")
-                if (state.length === 0) {
-                        console.log("hello")
-                        console.log(state, "state", state.length);
+                
                 fetchFromAPI().then((response)=>{
+                        
                         const temp = [];
                         const {results} = response;
                         console.log(results)
@@ -23,14 +24,27 @@ const Quiz = () => {
                           //setData(...data, [{question: result?.question, incorrectAnswers: result?.incorrect_answers, correctAnswer: result?.correct_answer}])
                           
                         })
+                        
                         //setData(temp);
+                        temp.map((obj)=>{
+                                setQuest(quest=>[...quest,obj?.question])
+                                const wr = obj?.incorrectAnswers
+                                setWrongAnswer(wrongAnswer=>[...wrongAnswer,wr]);
+                                setRightAnswer(rightAnswer=>[...rightAnswer, obj?.correctAnswer])
+                        })
                         console.log(temp[0]?.question, "lol")
-                        setState(temp[0]?.question)
+                       /*  setQuest(temp[0]?.question)
+                        setRightAnswer(temp[0]?.correctAnswer)
+                        setWrongAnswer(temp[0]?.incorrectAnswers) */
+                        setOptions([...wrongAnswer[0],rightAnswer[0]])
+                        
                         console.log("temp"+JSON.stringify(temp));
-                        //console.log("data"+JSON.stringify(data))
+                        console.log("data"+JSON.stringify(rightAnswer[0]))
+                        console.log("data"+JSON.stringify(wrongAnswer[0]))
+                        console.log("data"+JSON.stringify(options))
                           
                         
-                    })};
+                    })
         },[] )
         
     
@@ -46,7 +60,7 @@ const Quiz = () => {
         <div className="bg-slate-800 h-screen justify-start flex flex-row p-4 fixed top-14 left-0 right-0">
 <div className='w-1/4'>
 <h1 className='text-yellow-500 mb-5'>Question 1</h1>
-        <h1 className='text-white'>{state}</h1>
+        <h1 className='text-white'>{quest[0]}</h1>
 </div>
         <section className='w-3/4 '>
             
@@ -56,10 +70,12 @@ const Quiz = () => {
         </div>
         <section className='flex flex-col justify-start'>
         <h1 className='text-left text-lg mb-5 font-semibold text-white'>Options</h1>
-        <TailwindOptionButton/>
-        <TailwindOptionButton/>
-        <TailwindOptionButton/>
-        <TailwindOptionButton/>
+        {options?.map((option)=>{
+                return (
+                        <TailwindOptionButton props={option}/>    
+                )
+        })}
+        
         </section>
         <div className='grid grid-cols-1 content-center'>
         <button className='bg-yellow-500 w-20 h-10'>Next</button>
@@ -86,9 +102,9 @@ const Quiz = () => {
   )
 }
 
-function TailwindOptionButton(props){
+function TailwindOptionButton({props}){
 return (
-    <button className='font-mono bg-slate-700 text-2xl h-14 m-4 text-white mb-2 w-96' ><div className='flex flex-row p-2 justify-between'><h1 className=''>hi</h1><div className='box-content w-3 h-3 border-slate-400 border-2 bg-slate-700 m-2'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="4" className="fill-none">
+    <button className='font-mono bg-slate-700 text-2xl h-14 m-4 text-white mb-2 w-96' ><div className='flex flex-row p-2 justify-between'><h1 className=''>{props}</h1><div className='box-content w-3 h-3 border-slate-400 border-2 bg-slate-700 m-2'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="4" className="fill-none">
         <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
 </svg></div></div> </button>
 )
