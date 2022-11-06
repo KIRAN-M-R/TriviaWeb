@@ -5,7 +5,7 @@ import { useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import Result from "../Result/Result";
 
-const Quiz = ({ questions, options, correctAnswers }) => {
+const Quiz = ({ questions, options, correctAnswers, handleRetakeQuiz }) => {
  // const [options, setOptions] = useState([]);
 const [score, setScore] = useState(0)
   const [index, setIndex] = useState(0);
@@ -56,8 +56,9 @@ console.log("selectedAnswerList"+JSON.stringify(selectedAnswer));
 
     })
     console.log("score"+score);
-    //setNavigateToResults(true)
+    setNavigateToResults(true);
   }
+  
 console.log("opt1"+JSON.stringify(options));
 console.log("opt1"+JSON.stringify(correctAnswers));
   useEffect(() => {
@@ -69,7 +70,7 @@ console.log("opt1"+JSON.stringify(correctAnswers));
 
   return (
     <>
-    {navigateToResults ? (<Result score={score} />):(<div className="relative">
+    {navigateToResults ? (<Result score={score} handleRetakeQuiz={handleRetakeQuiz} />):(<div className="relative">
       <Navbar />
       <div className="bg-slate-800 h-screen justify-start flex flex-row p-4 fixed top-14 left-0 right-0">
         <div className="w-1/4">

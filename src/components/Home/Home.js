@@ -13,6 +13,9 @@ const Home = () => {
   const [correctAnswers, setCorrectAnswers] = useState([]);
   const [options, setOptions] = useState([]);
   const data = [];
+  const handleRetakeQuiz = ()=>{
+    setNavigateToQuiz(false)
+  }
   const handleNavigate = () => {
     fetchFromAPI().then((response) => {
       const { results } = response;
@@ -52,6 +55,7 @@ console.log("options"+JSON.stringify(options));
 
     console.log("wh" + navigateToQuiz);
   };
+  
  /* useEffect(()=>{
   console.log("options"+JSON.stringify(options));
 },[options])  */
@@ -62,6 +66,7 @@ console.log("options"+JSON.stringify(options));
           questions={questions}
           options={options}
           correctAnswers={correctAnswers}
+          handleRetakeQuiz={handleRetakeQuiz}
         />
       ) : (
         <div className="bg-slate-800 h-screen flex flex-row justify-center">
