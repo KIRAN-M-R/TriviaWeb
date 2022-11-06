@@ -1,6 +1,6 @@
 import React from "react";
 import { fetchFromAPI } from "../../api";
-
+import _ from "lodash";
 import { useState } from "react";
 import Quiz from "../Quiz/Quiz";
 import { useEffect } from "react";
@@ -8,11 +8,10 @@ const st = "Take quiz >";
 
 const Home = () => {
   const [navigateToQuiz, setNavigateToQuiz] = useState(false);
-
+  
   const [questions, setQuestions] = useState([]);
-  const [rightAnswers, setrightAnswers] = useState([]);
-  const [wrongAnswers, setwrongAnswers] = useState([]);
-
+  
+  const [options, setOptions] = useState([]);
   const data = [];
   const handleNavigate = () => {
     fetchFromAPI().then((response) => {
@@ -29,32 +28,38 @@ const Home = () => {
       });
       console.log(data);
       console.log("doi");
-
-      data.map((obj) => {
+      let optionList
+      let optionShuffled
+      let optionShuffledList=[]
+      data.map((obj,ind) => {
         setQuestions((questions) => [...questions, obj?.question]);
-        const wr = obj?.incorrectAnswers;
-        setwrongAnswers((wrongAnswers) => [...wrongAnswers, wr]);
-        setrightAnswers((rightAnswers) => [
-          ...rightAnswers,
-          obj?.correctAnswer,
-        ]);
+        optionList=[]
+        optionShuffled=[]
+        optionList.push(...obj?.incorrectAnswers);
+        optionList.push(obj?.correctAnswer);
+        console.log("unsh"+optionList);
+        optionShuffled = _.shuffle(optionList);
+        console.log("_shuffle"+JSON.stringify(optionShuffled));
+        optionShuffledList.push(optionShuffled)
+        console.log("ind"+ind);
+        
       });
-
+      setOptions((options)=>[...options,...optionShuffledList])
+console.log("options"+JSON.stringify(options));
       setNavigateToQuiz(true);
     });
 
     console.log("wh" + navigateToQuiz);
   };
-/* useEffect(()=>{
-  setNavigateToQuiz(false);
-},[]) */
+ /* useEffect(()=>{
+  console.log("options"+JSON.stringify(options));
+},[options])  */
   return (
     <>
       {navigateToQuiz ? (
         <Quiz
           questions={questions}
-          wrongAnswers={wrongAnswers}
-          rightAnswers={rightAnswers}
+          options={options}
         />
       ) : (
         <div className="bg-slate-800 h-screen flex flex-row justify-center">

@@ -1,21 +1,28 @@
 import React from "react";
 import Navbar from "../Navbar/Navbar";
-
+import _ from "lodash";
 import { useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 
-const Quiz = ({ questions, rightAnswers, wrongAnswers }) => {
-  const [options, setOptions] = useState([]);
+const Quiz = ({ questions, options }) => {
+ // const [options, setOptions] = useState([]);
 
   const [index, setIndex] = useState(0);
 
   const [question, setQuestion] = useState("");
-
+  //const [selectedAnswer, setSelectedAnswer] = useState([]);
+ /*  const selectedAnswerList = [];
+  questions.map(()=>{
+    selectedAnswerList.push("");
+  }) */
+  
+//console.log("selectedAnswerList"+selectedAnswerList);
   const handlePrevious = () => {
     if (index !== 0) {
       setIndex((index) => index - 1);
       console.log(index);
+
     }
   };
   const handleNext = () => {
@@ -23,17 +30,18 @@ const Quiz = ({ questions, rightAnswers, wrongAnswers }) => {
     if (index < questions.length - 1) {
       setIndex((index) => index + 1);
       console.log(index);
+      //selectedAnswerList[0] = 'how are you';
     }
   };
-  const handleOptions = () => {};
-
+  const handleOptions = (opt) => {
+    
+    console.log("opt"+opt);
+  };
+console.log("opt1"+JSON.stringify(options));
   useEffect(() => {
-    setOptions([...wrongAnswers[index], rightAnswers[index]]);
+    
     setQuestion(questions[index]);
 
-    console.log("data" + JSON.stringify(rightAnswers[index]));
-    console.log("data" + JSON.stringify(wrongAnswers[index]));
-    console.log("data" + JSON.stringify(options));
     console.log("hi");
   }, [index]);
 
@@ -56,8 +64,8 @@ const Quiz = ({ questions, rightAnswers, wrongAnswers }) => {
               <h1 className="text-left text-lg mb-5 font-semibold text-white">
                 Options
               </h1>
-              {options?.map((opt) => {
-                return <TailwindOptionButton props={opt} />;
+              {options[index]?.map((opt) => {
+                return <TailwindOptionButton opt={opt} />;
               })}
             </section>
             <div className="grid grid-cols-1 content-center">
@@ -77,14 +85,15 @@ const Quiz = ({ questions, rightAnswers, wrongAnswers }) => {
       </div>
     </div>
   );
-  function TailwindOptionButton({ props }) {
+  function TailwindOptionButton({ opt }) {
+
     return (
       <button
-        onClick={handleOptions}
+        onClick={()=>{handleOptions(opt)}}
         className="font-mono bg-slate-700 hover:bg-slate-600 focus:bg-slate-900 focus:ring focus:ring-violet-300 text-2xl h-14 m-4 text-white mb-2 w-96"
       >
         <div className="flex flex-row p-2 justify-between">
-          <h1 className="">{props}</h1>
+          <h1 className="">{opt}</h1>
           <div className="box-content w-3 h-3 border-slate-400 border-2 bg-slate-700 m-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
