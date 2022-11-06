@@ -4,7 +4,7 @@ import _ from "lodash";
 import { useState } from "react";
 import Quiz from "../Quiz/Quiz";
 import { useEffect } from "react";
-const st = "Take quiz >";
+const TAKE_QUIZ = "Take quiz >";
 
 const Home = () => {
   const [navigateToQuiz, setNavigateToQuiz] = useState(false);
@@ -76,9 +76,9 @@ console.log("options"+JSON.stringify(options));
             </h1>
             <button
               onClick={handleNavigate}
-              className="font-mono text-2xl h-20 text-white bg-sky-900"
+              className="font-mono text-2xl h-20 text-white bg-sky-900 hover:bg-sky-800"
             >
-              {st}
+              {TAKE_QUIZ}
             </button>
           </div>
         </div>

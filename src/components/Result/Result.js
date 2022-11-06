@@ -18,13 +18,13 @@ console.log("clicked");
             <div className=" flex flex-col justify-center space-y-1">
             <button
               onClick={handleNavigate}
-              className="font-mono text-2xl h-20 text-white bg-sky-700"
+              className="font-mono text-2xl h-20 text-white bg-sky-700 hover:bg-sky-600"
             >
               Retake Quiz
             </button>
             <button
               onClick={handleRestart}
-              className="font-mono text-2xl h-20 text-white bg-sky-900"
+              className="font-mono text-2xl h-20 text-white bg-sky-900 hover:bg-sky-600"
             >
               Start Fresh Quiz
             </button>

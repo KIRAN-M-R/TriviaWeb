@@ -71,7 +71,7 @@ console.log("opt1"+JSON.stringify(correctAnswers));
   return (
     <>
     {navigateToResults ? (<Result score={score} handleRetakeQuiz={handleRetakeQuiz} />):(<div className="relative">
-      <Navbar />
+      <Navbar handleRetakeQuiz={handleRetakeQuiz} />
       <div className="bg-slate-800 h-screen justify-start flex flex-row p-4 fixed top-14 left-0 right-0">
         <div className="w-1/4">
           <h1 className="text-yellow-500 mb-5">Question {index + 1}</h1>
