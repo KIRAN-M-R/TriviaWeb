@@ -3,21 +3,28 @@ import Navbar from "../Navbar/Navbar";
 import _ from "lodash";
 import { useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
+import Result from "../Result/Result";
 
-
-const Quiz = ({ questions, options }) => {
+const Quiz = ({ questions, options, correctAnswers }) => {
  // const [options, setOptions] = useState([]);
-
+const [score, setScore] = useState(0)
   const [index, setIndex] = useState(0);
-
+  const [checked, setChecked] = useState(false)
+const [navigateToResults, setNavigateToResults] = useState(false);
   const [question, setQuestion] = useState("");
-  //const [selectedAnswer, setSelectedAnswer] = useState([]);
- /*  const selectedAnswerList = [];
-  questions.map(()=>{
-    selectedAnswerList.push("");
-  }) */
-  
-//console.log("selectedAnswerList"+selectedAnswerList);
+  const [selectedAnswer, setSelectedAnswer] = useState([]);
+  //let selectedAnswerList
+  useEffect(()=>{
+    //selectedAnswerList = [];
+    questions.map(()=>{
+      //selectedAnswerList.push("");
+      setSelectedAnswer((selectedAnswer)=>[...selectedAnswer, ""])
+    })
+  },[])
+  useEffect(()=>{
+
+  },[checked])
+console.log("selectedAnswerList"+JSON.stringify(selectedAnswer));
   const handlePrevious = () => {
     if (index !== 0) {
       setIndex((index) => index - 1);
@@ -30,14 +37,29 @@ const Quiz = ({ questions, options }) => {
     if (index < questions.length - 1) {
       setIndex((index) => index + 1);
       console.log(index);
-      //selectedAnswerList[0] = 'how are you';
+      
     }
   };
   const handleOptions = (opt) => {
-    
+    let selecttemp = selectedAnswer
+      selecttemp[index]=opt;
+      setSelectedAnswer(selecttemp)
+      setChecked(!checked)
+      //if(selecttemp[index]===opt){ setChecked(true)}else{setChecked(false)}
     console.log("opt"+opt);
   };
+  const handleSubmit = () => {
+    let scoreTemp = 0
+    correctAnswers.map((correctAnswer,ind)=>{
+      if(correctAnswer===selectedAnswer[ind]) scoreTemp=scoreTemp + 1
+      setScore(scoreTemp)
+
+    })
+    console.log("score"+score);
+    //setNavigateToResults(true)
+  }
 console.log("opt1"+JSON.stringify(options));
+console.log("opt1"+JSON.stringify(correctAnswers));
   useEffect(() => {
     
     setQuestion(questions[index]);
@@ -46,7 +68,8 @@ console.log("opt1"+JSON.stringify(options));
   }, [index]);
 
   return (
-    <div className="relative">
+    <>
+    {navigateToResults ? (<Result score={score} />):(<div className="relative">
       <Navbar />
       <div className="bg-slate-800 h-screen justify-start flex flex-row p-4 fixed top-14 left-0 right-0">
         <div className="w-1/4">
@@ -76,26 +99,30 @@ console.log("opt1"+JSON.stringify(options));
           </div>
           <section className="flex flex-row mt-40 justify-center">
             <div className="grid grid-cols-1 content-end mt-10">
-              <button className="font-mono text-2xl h-10 w-40 text-white bg-sky-900">
+              <button onClick={handleSubmit} className="font-mono text-2xl h-10 w-40 text-white bg-sky-900">
                 Submit
               </button>
             </div>
           </section>
         </section>
       </div>
-    </div>
+    </div>)} 
+    </>
+    
   );
   function TailwindOptionButton({ opt }) {
-
+    let colcode;
+    opt===selectedAnswer[index]?colcode='bg-slate-900 ring ring-violet-300':colcode='bg-slate-700'
+   
     return (
       <button
         onClick={()=>{handleOptions(opt)}}
-        className="font-mono bg-slate-700 hover:bg-slate-600 focus:bg-slate-900 focus:ring focus:ring-violet-300 text-2xl h-14 m-4 text-white mb-2 w-96"
+        className={`font-mono ${colcode} hover:bg-slate-600 text-2xl h-14 m-4 text-white mb-2 w-96`}
       >
         <div className="flex flex-row p-2 justify-between">
           <h1 className="">{opt}</h1>
           <div className="box-content w-3 h-3 border-slate-400 border-2 bg-slate-700 m-2">
-            <svg
+            {colcode==='bg-slate-900 ring ring-violet-300'?<svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -107,11 +134,12 @@ console.log("opt1"+JSON.stringify(options));
                 strokeLinejoin="round"
                 d="M4.5 12.75l6 6 9-13.5"
               />
-            </svg>
+            </svg>:<></>}
           </div>
         </div>{" "}
       </button>
     );
+    
   }
 };
 

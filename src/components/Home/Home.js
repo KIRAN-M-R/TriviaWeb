@@ -10,7 +10,7 @@ const Home = () => {
   const [navigateToQuiz, setNavigateToQuiz] = useState(false);
   
   const [questions, setQuestions] = useState([]);
-  
+  const [correctAnswers, setCorrectAnswers] = useState([]);
   const [options, setOptions] = useState([]);
   const data = [];
   const handleNavigate = () => {
@@ -33,6 +33,7 @@ const Home = () => {
       let optionShuffledList=[]
       data.map((obj,ind) => {
         setQuestions((questions) => [...questions, obj?.question]);
+        setCorrectAnswers((correctAnswers)=>[...correctAnswers, obj?.correctAnswer])
         optionList=[]
         optionShuffled=[]
         optionList.push(...obj?.incorrectAnswers);
@@ -60,6 +61,7 @@ console.log("options"+JSON.stringify(options));
         <Quiz
           questions={questions}
           options={options}
+          correctAnswers={correctAnswers}
         />
       ) : (
         <div className="bg-slate-800 h-screen flex flex-row justify-center">
