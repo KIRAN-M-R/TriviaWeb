@@ -1,13 +1,15 @@
 import React from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
-const Result = ({score, handleRetakeQuiz}) => {
+const Result = ({score, handleRetakeQuiz, navigateToHome}) => {
   const navigate = useNavigate();
   const handleNavigate = ()=>{
     handleRetakeQuiz()
 console.log("clicked");
   }
-  const handleRestart = ()=>{
-    window.location.reload(true);
+  const handleRestartQuiz = ()=>{
+    
+    navigateToHome()
+    //window.location.reload(true);
   }
   return (
     <div className="bg-slate-800 h-screen flex flex-row justify-center">
@@ -23,7 +25,7 @@ console.log("clicked");
               Retake Quiz
             </button>
             <button
-              onClick={handleRestart}
+              onClick={handleRestartQuiz}
               className="font-mono text-2xl h-20 text-white bg-sky-900 hover:bg-sky-600"
             >
               Start Fresh Quiz
