@@ -95,19 +95,19 @@ console.log("opt1"+JSON.stringify(correctAnswers));
             <div className="flex flex-col">
             <div className="flex flex-row-2 justify-between h-10">
             
-            <button onClick={handlePrevious} className="text-yellow-500 mx-5 w-20 h-10">
+            <button onClick={handlePrevious} className="text-yellow-500 hover:text-yellow-400 mx-5 w-20 h-10">
                 Previous
               </button>
             
             
-            <button onClick={handleNext} className="bg-yellow-500 mx-5 w-20 h-10">
+            <button onClick={handleNext} className="bg-yellow-500 hover:bg-yellow-400 mx-5 w-20 h-10">
                 Next
               </button>
           
             </div>
         
           <div className="flex flex-row justify-center h-10 mt-2 md:mt-20">
-            <button onClick={handleSubmit} className="font-mono text-2xl  h-10 w-80 text-white bg-sky-900">
+            <button onClick={handleSubmit} className="font-mono text-2xl  h-10 w-80 text-white bg-sky-900 hover:bg-sky-800">
               Submit
             </button>
           </div>
