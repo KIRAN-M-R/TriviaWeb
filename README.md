@@ -1,7 +1,7 @@
 
 
 
-
+Bug fix-1 -> The number of questions should be 10 even when we retake the quiz but now it is more than that. This should be fixed.
 
 # Getting Started with Create React App
 

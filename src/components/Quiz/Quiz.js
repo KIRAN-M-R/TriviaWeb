@@ -5,7 +5,7 @@ import { useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import Result from "../Result/Result";
 
-const Quiz = ({ questions, options, correctAnswers, handleRetakeQuiz }) => {
+const Quiz = ({ questions, options, correctAnswers }) => {
  // const [options, setOptions] = useState([]);
 const [score, setScore] = useState(0)
   const [index, setIndex] = useState(0);
@@ -57,6 +57,9 @@ console.log("selectedAnswerList"+JSON.stringify(selectedAnswer));
     })
     console.log("score"+score);
     setNavigateToResults(true);
+  }
+  const handleRetakeQuiz = ()=>{
+    setNavigateToResults(false)
   }
   
 console.log("opt1"+JSON.stringify(options));
