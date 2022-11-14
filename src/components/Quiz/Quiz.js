@@ -75,7 +75,7 @@ const Quiz = ({ questions, options, correctAnswers, navigateToHome }) => {
         />
       ) : (
         <div className="relative">
-          <Navbar handleRetakeQuiz={handleRetakeQuiz} />
+          <Navbar navigateToHome={navigateToHome} />
           <div className=" bg-slate-800 h-screen justify-start flex md:flex-row flex-col p-4 fixed top-14 left-0 right-0">
             <div className=" w-auto md:w-1/4 h-28 md:h-auto">
               <h1 className="text-yellow-500">Question {index + 1}</h1>
